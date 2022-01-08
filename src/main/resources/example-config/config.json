@@ -1,0 +1,17 @@
+{
+    "repos": [
+        "b2ibaw-poc-eventbridge",
+        "b2ibaw-promotions",
+        "b2ibaw-web-store"
+    ],
+    "authors": [
+        "gabriel@app.me",
+        "ariel@app.me",
+        "luciano@app.me"
+    ],
+    "notificationsEnabled": true,
+    "googleChatUrl": "https://chat.googleapis.com/v1/spaces/XXXX/messages?key=XXX???XXX",
+    "subscriptions": {
+        "pullRequestSubscriptions": []
+    }
+}

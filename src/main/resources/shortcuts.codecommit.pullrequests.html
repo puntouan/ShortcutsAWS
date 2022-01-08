@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+            crossorigin="anonymous"
+    />
+
+    <title>My team's PRs</title>
+    <script>
+
+        function getApprovals(){
+            let approvalsColumns = document.getElementsByName("approvals-column")
+            approvalsColumns.forEach(function(element) {
+                let pullRequestId = element.getAttribute("id").replace('approvals-column-','')
+                fetch('{url_count_approvals}' + pullRequestId)
+                .then(response => response.text())
+                .then(data => document.getElementById("approvals-column-" + pullRequestId).innerHTML = data)
+            })
+        }
+
+        function subscribe(pullRequestId){
+            document.getElementById("subscribe-button-" + pullRequestId).innerHTML =
+                "<div class=\"spinner-border spinner-border-sm\" role=\"status\"/>"
+            fetch('{url_subscribe_to_pull_request}' + pullRequestId, {method: 'PUT'})
+            .then(response => response.text())
+            .then(data => {
+                if (data === "OK") location.reload()
+                else alert("There was a problem subscribing to the pull request")
+            })
+        }
+
+        function unsubscribe(pullRequestId){
+            document.getElementById("unsubscribe-button-" + pullRequestId).innerHTML =
+                "<div class=\"spinner-border spinner-border-sm\" role=\"status\"/>"
+            fetch('{url_unsubscribe_to_pull_request}' + pullRequestId, {method: 'PUT'})
+                .then(response => response.text())
+                .then(data => {
+                    if (data === "OK") location.reload()
+                    else alert("There was a problem unsubscribing to the pull request")
+                })
+        }
+
+        function showActivity(pullRequestId){
+            document.getElementById("button-show-activity-" + pullRequestId).setAttribute("style","display:none;")
+            document.getElementById("button-hide-activity-" + pullRequestId).removeAttribute("style")
+            document.getElementById("activity-table-" + pullRequestId).removeAttribute("style")
+            fetch('{url_get_activity}' + pullRequestId)
+                .then(response => response.text())
+                .then(data => document.getElementById("activity-table-body-" + pullRequestId).innerHTML = data)
+        }
+
+        function hideActivity(pullRequestId){
+            document.getElementById("button-hide-activity-" + pullRequestId).setAttribute("style","display:none;")
+            document.getElementById("button-show-activity-" + pullRequestId).removeAttribute("style")
+            document.getElementById("activity-table-" + pullRequestId).setAttribute("style","display:none;")
+        }
+    </script>
+</head>
+
+<body onload="getApprovals()">
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"
+></script>
+
+<h1>My team's PRs</h1>
+    <table class="table">
+        {pull_request_authors}
+    </table>
+</body>
+</html>

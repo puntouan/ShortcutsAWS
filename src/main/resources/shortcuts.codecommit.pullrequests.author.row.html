@@ -1,0 +1,61 @@
+<!-- table-secondary | table-success -->
+<tr
+    class="{pull_request_subscription_class}"
+    title="Creation:{pull_request_creation_date}  Branch:{pull_request_branch_name}"
+>
+    <th scope="row">
+        <a
+            href="{pull_request_url}"
+            target="_blank"
+        >{pull_request_id}</a>
+    </th>
+    <td>{pull_request_repo_name}</td>
+    <td name="approvals-column" id="approvals-column-{pull_request_id}">
+        <div class="spinner-border spinner-border-sm" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </td>
+    <td>{pull_request_last_activity}</td>
+    <td>{pull_request_title}</td>
+    <td>{pull_request_subscription_status}</td>
+    <!-- {display} style="display:none;" | nada-->
+    <td>
+        <button id="button-show-activity-{pull_request_id}" type="button" class="btn btn-outline-primary btn-sm"
+                onclick="showActivity({pull_request_id})">
+            Show activity
+        </button>
+        <button id="button-hide-activity-{pull_request_id}" type="button" class="btn btn-outline-primary btn-sm"
+                style="display:none;" onclick="hideActivity({pull_request_id})">
+            Hide activity
+        </button>
+        <button id="subscribe-button-{pull_request_id}" type="button" class="btn btn-outline-primary btn-sm" {display_subscription_button}
+                onclick="subscribe({pull_request_id})"
+        >
+            Subscribe
+        </button>
+        <button id="unsubscribe-button-{pull_request_id}" type="button" class="btn btn-outline-primary btn-sm" {display_unsubscription_button}
+                onclick="unsubscribe({pull_request_id})"
+        >
+            Unsubscribe
+        </button>
+    </td>
+</tr>
+<tr id="activity-table-{pull_request_id}" style="display:none;">
+    <td colspan="7">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th scope="col">Who</th>
+                    <th scope="col">When</th>
+                    <th scope="col">What</th>
+                    <th scope="col">What else</th>
+                </tr>
+            </thead>
+            <tbody id="activity-table-body-{pull_request_id}">
+                <tr><td colspan="4" class="text-center">
+                    <div class="spinner-border spinner-border-sm" role="status"></div>
+                </td></tr>
+            </tbody>
+        </table>
+    </td>
+</tr>
