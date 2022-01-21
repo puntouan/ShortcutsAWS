@@ -4,6 +4,7 @@ import com.google.inject.Inject
 import com.jubel.shortcuts.aws.notification.application.SendSimpleMessageNotification
 import com.jubel.shortcuts.aws.shared.domain.ExpiredTokenException
 import kotlinx.coroutines.*
+import kotlin.system.exitProcess
 
 class MyTimer @Inject constructor(
     private val sendSimpleMessageNotification: SendSimpleMessageNotification
@@ -32,7 +33,14 @@ class MyTimer @Inject constructor(
 
     private fun handleException(exception: Exception){
         when(exception){
-            is ExpiredTokenException -> sendSimpleMessageNotification.run("Expired token!! Update credentials")
+            is ExpiredTokenException -> {
+                sendSimpleMessageNotification.run(
+                    """
+                        Expired token!! Update credentials
+                        ¡¡¡ ME APAGO !!!
+                    """.trimIndent())
+                exitProcess(0)
+            }
             else -> {
                 val message = "UnexpectedException!! ${exception.javaClass.name} --> ${exception.message}"
                 sendSimpleMessageNotification.run(message)

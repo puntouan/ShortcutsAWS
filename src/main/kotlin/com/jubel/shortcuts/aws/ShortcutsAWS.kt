@@ -30,6 +30,9 @@ class ShortcutsAWS {
 
         awaitInitialization()
 
+        val simpleMessageNotifier = injector.getInstance(SendSimpleMessageNotification::class.java)
+        simpleMessageNotifier.run("Estoy en marcha!!")
+
         val myTimer = injector.getInstance(MyTimer::class.java)
         val launchPeriodicTasks = injector.getInstance(LaunchPeriodicTasks::class.java)
         myTimer.runPeriodicAsync(60, launchPeriodicTasks::run)

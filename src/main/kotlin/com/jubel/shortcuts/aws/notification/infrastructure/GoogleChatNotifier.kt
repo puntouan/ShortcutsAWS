@@ -30,6 +30,7 @@ class GoogleChatNotifier @Inject constructor(
 
         val url = configRepository.getChatUrl()
 
+
         runBlocking {
             CoroutineScope(Dispatchers.IO).launch {
                 client.post<String>(url){

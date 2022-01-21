@@ -2,6 +2,8 @@ package com.jubel.shortcuts.aws.pullrequest.infrastructure
 
 import com.jubel.shortcuts.aws.pullrequest.application.SubscribeToPullRequest
 import spark.Request
+import spark.kotlin.Http
+import spark.kotlin.ignite
 import spark.kotlin.put
 import javax.inject.Inject
 

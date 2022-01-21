@@ -35,7 +35,7 @@ class CheckChangesInPullRequest @Inject constructor(
 
         if (subscription.status != currentStatus){
             if (!subscription.isInitialStatus()){
-                sendChangeOnPullRequestNotification.run(pullRequest.id, pullRequest.repoName, pullRequest.author, pullRequest.url)
+                sendChangeOnPullRequestNotification.run(pullRequest.id, pullRequest.repoName, pullRequest.author, pullRequest.title, pullRequest.url)
             }
             subscription.status = currentStatus
             configRepository.saveConfig()
