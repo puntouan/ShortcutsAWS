@@ -7,7 +7,7 @@ class SendChangeOnPullRequestNotification @Inject constructor(
     private val notifier: Notifier
 ) {
 
-    fun run(id: String, repo: String, title: String, author: String, url: String){
+    fun run(id: String, repo: String, author: String, title: String, url: String){
 
         val message = """
             Ha habido un cambio en la siguiente pull request a la que estás suscrito:
