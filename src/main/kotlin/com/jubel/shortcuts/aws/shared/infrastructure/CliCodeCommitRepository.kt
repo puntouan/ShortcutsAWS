@@ -56,7 +56,7 @@ class CliCodeCommitRepository : CodeCommitRepository {
         val lastActivity = ZonedDateTime.parse(prJsonObject["lastActivityDate"]!!.jsonPrimitive.content)
         val creation = ZonedDateTime.parse(prJsonObject["creationDate"]!!.jsonPrimitive.content)
         val status = prJsonObject["pullRequestStatus"]!!.jsonPrimitive.content
-        val author = prJsonObject["authorArn"]!!.jsonPrimitive.content.split("/").last()
+        val author = prJsonObject["authorArn"]?.jsonPrimitive?.content?.split("/")?.last() ?: "Unknown"
         val targetJsonElement = prJsonObject["pullRequestTargets"]!!.jsonArray.first().jsonObject
         val repoName = targetJsonElement["repositoryName"]!!.jsonPrimitive.content
         val branchName = targetJsonElement["sourceReference"]!!.jsonPrimitive.content.removePrefix("refs/heads/")
